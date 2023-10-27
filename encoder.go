@@ -24,7 +24,7 @@ type Encoder struct {
 }
 
 type Unmarshaler interface {
-	Unmarshal(v interface{}) error
+	UnmarshalInto(v interface{}) error
 }
 
 // NewEncoder return the Encoder for given Subject from the Registry
@@ -76,7 +76,7 @@ type AvroEncoded struct {
 	data []byte
 }
 
-func (s *AvroEncoded) Unmarshal(in interface{}) error {
+func (s *AvroEncoded) UnmarshalInto(in interface{}) error {
 	schema, err := avro.Parse(s.enc.Schema())
 	if err != nil {
 		return errors.WithPrevious(err, fmt.Sprintf(`schema parsing error for schema %s`, s.enc.Schema()))
